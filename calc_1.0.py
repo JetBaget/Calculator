@@ -4,16 +4,15 @@ from sys import stdin
 
 '''This program allows you to calculate the sum of two integers'''
 
-input_str = stdin.read()
+input_str = stdin.readline()
 res = 0
+if ' ' in input_str:
+    input_str = input_str.replace(' ', '')
 
 #OPERATION_1: Addition
 
-split_input_str = input_str.split()
-
-if split_input_str[0].isdigit() and split_input_str[1] == '+'\
- and split_input_str[2].isdigit():
-    res = int(split_input_str[0]) + int(split_input_str[2])
+if input_str[0].isdigit() and '+' in input_str and input_str[2].isdigit():
+    res = int(input_str[0]) + int(input_str[2])
     print 'The sum is equal:', res
 else:
     print 'The string is not correct'

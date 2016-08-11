@@ -102,24 +102,27 @@ def check_input(checking_string):
             #print "Check_2: OK"
             buf_1 = str_to_list[0]
             buf_2 = str_to_list[1]
-            if len(str_to_list) > 2:
-                while str_to_list != []:
+            while str_to_list != []:
+                if len(str_to_list) > 2:
                     if buf_1.isdigit() == buf_2.isdigit():
+                        check_3 = False
                         print "Wrong order of symbols!"
-                        check_3 == False
                         break
                     else:
-                        check_3 = True
                         if str_to_list != []:
                             buf_1 = buf_2
                             buf_2 = str_to_list.pop(0)
+                            check_3 = True
                         else:
                             break
-            else:
-                if buf_1.isdigit() == True and buf_2.isdigit() == False:
-                    print "Wrong order of symbols!"
                 else:
-                    check_3 = True
+                    if buf_1.isdigit() == True and buf_2.isdigit() == False:
+                        check_3 = False
+                        print "Wrong order of symbols!"
+                        break
+                    else:
+                        check_3 = True
+                        str_to_list = []
             #if check_3 == True:
                 #print "Check_3: OK"
         else:
@@ -129,8 +132,7 @@ def check_input(checking_string):
     return check_1 * check_2 * check_3
 
 #Help and Exit
-print "For help enter '-h' or '--help'. \
-For exit enter '-e', '--exit'."
+print "For help enter '-h' or '--help'. For exit enter '-e', '--exit'."
 
 input_str = stdin.readline()[:-1]
 
@@ -146,10 +148,10 @@ while input_str != '-e' or input_str != '--exit':
         input_str = stdin.readline()[:-1]
         continue
     else:
-	processed_str = InStr_proc(input_str).processor()
-	processed_list = list(processed_str)
+        processed_str = InStr_proc(input_str).processor()
+        processed_list = list(processed_str)
         operators = Queue()
-	o_perands = Queue()
+        o_perands = Queue()
         for i in processed_str:
             if i in '+-':
                 operators.enqueue(i)

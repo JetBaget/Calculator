@@ -16,7 +16,7 @@ number = ''
 res = 0
 
 #version and changes date control
-ver = "1.2"
+ver = "1.3"
 parser = argparse.ArgumentParser()
 parser.add_argument("-v", "--version", action="store_true")
 args = parser.parse_args()
@@ -107,7 +107,7 @@ def check_input(checking_string):
                 if len(str_to_list) > 2:
                     if buf_1.isdigit() == buf_2.isdigit():
                         check_3 = False
-                        print "Wrong order of symbols!"
+                        print ("Wrong order of symbols!")
                         break
                     else:
                         if str_to_list != []:
@@ -119,7 +119,7 @@ def check_input(checking_string):
                 else:
                     if buf_1.isdigit() == True and buf_2.isdigit() == False:
                         check_3 = False
-                        print "Wrong order of symbols!"
+                        print ("Wrong order of symbols!")
                         break
                     else:
                         check_3 = True
@@ -127,32 +127,31 @@ def check_input(checking_string):
             #if check_3 == True:
                 #print "Check_3: OK"
         else:
-            print "Wrong number of operators or operands!"
+            print ("Wrong number of operators or operands!")
     else:
-        print "Wrong symbol!"
+        print ("Wrong symbol!")
     return check_1 * check_2 * check_3
 
+#Function for correct close
 def signal_handler(signal, frame):
-    print('You pressed Ctrl+C!')
+    print("You pressed Ctrl+C!")
     sys.exit(0)
 signal.signal(signal.SIGINT, signal_handler)
-print('Press Ctrl+C')
-signal.pause()
 
 #Help and Exit
-print "For help enter '-h' or '--help'. For exit enter '-e', '--exit'."
+print ("For help enter '-h' or '--help'. For exit enter '-e', '--exit'.")
 
-input_str = stdin.readline()[:-1]
+input_str = sys.stdin.readline()[:-1]
 
 while input_str != '-e' or input_str != '--exit':
     if input_str == '-e' or input_str == '--exit':
         exit(0)
     elif input_str == '-h' or input_str == '--help':
-        print "---------------------------------H-E-L-P---------------------------------------\n"
-        print "1. Enter the expression in format: +/- A +/- B +/- ... +/- Z"
-        print "2. Use only '-' and '+' operators"
-        print "3. To exit enter '-e' or '--exit'\n"
-        print " --------------------------------------------------------------------------------"
+        print ("---------------------------------H-E-L-P-----------------------------------------")
+        print ("1. Enter the expression in format: +/- A +/- B +/- ... +/- Z")
+        print ("2. Use only '-' and '+' operators")
+        print ("3. To exit enter '-e' or '--exit'\n")
+        print (" --------------------------------------------------------------------------------")
         input_str = stdin.readline()[:-1]
         continue
     else:
@@ -177,10 +176,10 @@ while input_str != '-e' or input_str != '--exit':
 #Calculating:
         if operators.size() == 1 and o_perands.isEmpty() is True:
             res = ''
-            print res
+            print (res)
         elif o_perands.size() == 1 and operators.isEmpty() is True:
             res += int(o_perands.dequeue())
-            print res
+            print (res)
         else:
             if check_input(processed_str) == 1:
                 if operators.peek() == '-' and operators.size() == o_perands.size():
@@ -198,10 +197,10 @@ while input_str != '-e' or input_str != '--exit':
                     elif operators.peek() == '-':
                         res -= int(o_perands.dequeue())
                         operators.dequeue()
-                print res                
+                print (res)                
 #Prepare to a new cycle iteration
         operators = []
         o_perands = []
         res = 0
         number = ''
-        input_str = stdin.readline()[:-1]
+        input_str = sys.stdin.readline()[:-1]

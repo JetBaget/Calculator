@@ -3,7 +3,8 @@
 import argparse
 import time
 from os import path
-from sys import stdin
+import signal
+import sys
 
 #Initialisation of variables
 input_str = ''
@@ -130,6 +131,13 @@ def check_input(checking_string):
     else:
         print "Wrong symbol!"
     return check_1 * check_2 * check_3
+
+def signal_handler(signal, frame):
+    print('You pressed Ctrl+C!')
+    sys.exit(0)
+signal.signal(signal.SIGINT, signal_handler)
+print('Press Ctrl+C')
+signal.pause()
 
 #Help and Exit
 print "For help enter '-h' or '--help'. For exit enter '-e', '--exit'."

@@ -197,7 +197,9 @@ while input_str != '-e' or input_str != '--exit':
                     elif operators.peek() == '-':
                         res -= int(o_perands.dequeue())
                         operators.dequeue()
-                print (res)                
+                print (res)
+            else:
+                break
 #Prepare to a new cycle iteration
         operators = []
         o_perands = []

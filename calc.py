@@ -14,9 +14,10 @@ operators = []
 o_perands = []
 number = ''
 res = 0
+char = ''
 
 #version and changes date control
-ver = "1.3"
+ver = "1.3.1"
 parser = argparse.ArgumentParser()
 parser.add_argument("-v", "--version", action="store_true")
 args = parser.parse_args()
@@ -58,6 +59,12 @@ class Queue():
  
     def peek(self):
         return self.items[0]
+
+#Function for correct close
+def signal_handler(signal, frame):
+    print("You pressed Ctrl+C!")
+    sys.exit(0)
+signal.signal(signal.SIGINT, signal_handler)
 
 #Function of cheking the correctness of Input
 def check_input(checking_string):
@@ -132,28 +139,31 @@ def check_input(checking_string):
         print ("Wrong symbol!")
     return check_1 * check_2 * check_3
 
-#Function for correct close
-def signal_handler(signal, frame):
-    print("You pressed Ctrl+C!")
-    sys.exit(0)
-signal.signal(signal.SIGINT, signal_handler)
-
 #Help and Exit
-print ("For help enter '-h' or '--help'. For exit enter '-e', '--exit'.")
+#print ("For help enter '-h' or '--help'. For exit enter '-e', '--exit'.")
 
-input_str = sys.stdin.readline()[:-1]
+#input_str = sys.stdin.readline()[:-1]
 
 while input_str != '-e' or input_str != '--exit':
+    while True:
+        char = sys.stdin.read(1)
+        if char == '\n':
+            break
+        elif char == '':
+            break
+        else:
+            input_str += char
     if input_str == '-e' or input_str == '--exit':
         exit(0)
     elif input_str == '-h' or input_str == '--help':
         print ("---------------------------------H-E-L-P-----------------------------------------")
         print ("1. Enter the expression in format: +/- A +/- B +/- ... +/- Z")
         print ("2. Use only '-' and '+' operators")
-        print ("3. To exit enter '-e' or '--exit'\n")
+        print ("3. To exit enter '-e' or '--exit'")
         print (" --------------------------------------------------------------------------------")
-        input_str = stdin.readline()[:-1]
         continue
+    elif input_str == '':
+        break
     else:
         processed_str = InStr_proc(input_str).processor()
         processed_list = list(processed_str)
@@ -200,9 +210,9 @@ while input_str != '-e' or input_str != '--exit':
                 print (res)
             else:
                 break
-#Prepare to a new cycle iteration
+#Prepare to a new cycle iteration        
         operators = []
         o_perands = []
         res = 0
         number = ''
-        input_str = sys.stdin.readline()[:-1]
+        input_str = ''
